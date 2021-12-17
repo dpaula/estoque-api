@@ -1,0 +1,77 @@
+server:
+  port: 2590
+  servlet:
+    context-path: /
+  undertow:
+    accesslog:
+      prefix: "[estoque-API]"
+
+spring:
+  main:
+    banner-mode: 'off'
+  output:
+    ansi:
+      enabled: 'always'
+  application:
+    name: 'estoque-api'
+
+
+#  cloud:
+#    azure:
+#      servicebus:
+#        connection-string: Endpoint=sb://fplima.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=PwpFG/cuKBCq4xyVajZrs+R6ZD4gs9WgRvCGsxhEZeE=
+#      subscription-id: sb-pagamento
+#    stream:
+#      bindings:
+#        consume-in-0:
+#          destination: fplima-topico
+#          group: sb-pagamento
+#        supply-out-0:
+#          destination: fplima-topico
+#          producer:
+#            requiredGroups: sb-pagamento
+#        servicebus:
+#          topic:
+#            bindings:
+#              consume-in-0:
+#                consumer:
+#                  checkpoint-mode: MANUAL
+#        function:
+#          definition: consume;supply;
+#        poller:
+#          fixed-delay: 1000
+#          initial-delay: 0
+
+
+  data:
+    mongodb:
+      database: estoque_db
+      uri: mongodb://fplimacosmosdb:XpKAW9SVjjKJ7WndCqaIsIPLh1ZmjpjO20t2DNmQIrr5nXv9Ee4kntfOIeKJkdD8zg7VHWySytf7RD7Mb2FhPw==@fplimacosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@fplimacosmosdb@
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{1}: %msg%n'
+  level:
+    root: INFO
+    com.dpaula: DEBUG
+
+#ACTUATOR
+management:
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+    encoding: '@project.build.sourceEncoding@'
+    java:
+      version: '@java.version@'
